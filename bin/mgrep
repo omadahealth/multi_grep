@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+
+require 'optparse'
+require 'set'
+require 'awesome_print'
+require 'multi_grep'
+
+multi_grep = MultiGrep::Grep.new
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: multi_grep [options]"
+
+  opts.on("-p", "--regex-pattern [PATTERN]", "Pattern to search for") do |regex|
+    multi_grep.regex = regex
+  end
+
+  opts.on "-f", "--file [FILENAME]", "File to search in" do |filename|
+    multi_grep.match_file filename
+  end
+
+  opts.on "-s", "--silence", "Silence output of next file" do |_|
+    multi_grep.silence
+  end
+
+  opts.on "-d", "--debug", "Print context of named captures" do |_|
+    multi_grep.debug
+  end
+
+  opts.on "-v", "--version", "Print version" do |_|
+    puts "MultiGrep #{MultiGrep::VERSION}"
+  end
+end.parse!
+
+
