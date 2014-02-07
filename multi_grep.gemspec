@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'multi_grep/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "mgrep"
+  spec.name          = "multi_grep"
   spec.version       = MultiGrep::VERSION
   spec.authors       = ["Chris Constantine"]
   spec.email         = ["chris@omadahealth.com"]
