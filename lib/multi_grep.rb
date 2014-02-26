@@ -2,7 +2,7 @@ require "multi_grep/version"
 
 module MultiGrep
   class Grep
-    attr_accessor :regex, :matches, :silent
+    attr_accessor :regex, :matches, :silent, :invert_match
 
     def initialize
       self.regex = Regexp.new ''
@@ -14,6 +14,7 @@ module MultiGrep
       self.silent = !silent
     end
 
+
     def regex=(r)
       @regex = Regexp.new r
     end
@@ -23,7 +24,9 @@ module MultiGrep
         if match_data = regex.match(line.strip)
           all_match = true
           match_data.names.each do |name|
-            if name[0] == "_"
+            if name[0..1] == "__"
+              all_match = all_match && !matches[name[2..-1]].include?(match_data[name])
+            elsif name[0] == "_"
               all_match = all_match && matches[name[1..-1]].include?(match_data[name])
             else
               matches[name] = matches[name] << match_data[name]
@@ -44,5 +47,6 @@ module MultiGrep
     def output(*arg)
       puts *arg unless self.silent
     end
+
   end
 end

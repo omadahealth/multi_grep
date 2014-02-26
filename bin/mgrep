@@ -11,7 +11,7 @@ multi_grep = MultiGrep::Grep.new
 OptionParser.new do |opts|
   opts.banner = "Usage: multi_grep [options]"
 
-  opts.on("-p", "--regex-pattern [PATTERN]", "Pattern to search for") do |regex|
+  opts.on("-p", "--regex-pattern [PATTERN]", "Pattern to search for.  (?<name>REGEX) for capture.  (?<_name>REGEX) for match and (?<__name>REGEX) for anti-match") do |regex|
     multi_grep.regex = regex
   end
 
